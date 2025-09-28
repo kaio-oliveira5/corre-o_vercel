@@ -1,8 +1,0 @@
-{
-  "version": 2,
-  "builds": [
-    { "src": "gulpfile.js", "use": "@vercel/static-build" }
-  ],
-  "buildCommand": "gulp build",
-  "outputDirectory": "dist"
-}
