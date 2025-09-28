@@ -31,7 +31,7 @@ function images() {
 
 // Concatenar e minificar JS
 function scripts() {
-    return gulp.src('./src/js/**/*.js')
+    return gulp.src('./src/*.js')
         .pipe(concat('main.js'))
         .pipe(uglify())
         .pipe(gulp.dest('./dist/js'));
