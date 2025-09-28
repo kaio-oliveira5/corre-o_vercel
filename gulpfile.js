@@ -5,11 +5,12 @@ const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const cleanCSS = require('gulp-clean-css');
 const rename = require('gulp-rename');
+const replace = require('gulp-replace'); // <- Adicionado para corrigir os caminhos do HTML
 
-
-// Copiar HTML para dist
+// Copiar e corrigir HTML para dist
 function html() {
     return gulp.src('./index.html')
+        .pipe(replace('dist/', '')) // Remove "dist/" dos caminhos
         .pipe(gulp.dest('./dist'));
 }
 
@@ -22,7 +23,7 @@ function styles() {
         .pipe(gulp.dest('./dist/css'));
 }
 
-// Copiar imagens
+// Copiar e otimizar imagens
 function images() {
     return gulp.src('./src/images/**/*')
         .pipe(imagemin())
@@ -37,7 +38,7 @@ function scripts() {
         .pipe(gulp.dest('./dist/js'));
 }
 
-// Task build
+// Task de build
 const build = gulp.parallel(html, styles, images, scripts);
 
 exports.html = html;
