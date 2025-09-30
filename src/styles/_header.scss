@@ -1,5 +1,7 @@
 @use 'variaveis';
 
+$breakpoint-mobile: 768px;
+
 .header {
     position: sticky;
     top: 0;
@@ -19,29 +21,43 @@
                 transition: opacity .5s ease;
             }
         }
-
     }
 
     &__container {
         padding: 8px 36px;
         display: flex;
         justify-content: space-between;
+
+        @media screen and (max-width: $breakpoint-mobile) {
+            padding: 8px 16px; 
+        }
     }
+    
     &__logo {
-        max-width: 80px;
+        max-width: 80px; 
         width: 100%;
         margin: 5px;
         transition: opacity .5s ease;
+
+        @media screen and (max-width: $breakpoint-mobile) {
+            max-width: 95px; 
+            margin: 0; 
+        }
     }
+    
     &__links {
         display: flex;
+        align-items: center; 
 
-    &__item {
-        margin: 5px;
-        transition: opacity .5s ease;
-    }
-    }
+        &__item {
+            margin: 5px;
+            transition: opacity .5s ease;
 
+            @media screen and (max-width: $breakpoint-mobile) {
+                margin: 0 4px; 
+            }
+        }
+    }
     .button {
         height: 50px;
     }

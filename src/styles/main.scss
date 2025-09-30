@@ -1,12 +1,20 @@
-@use './variaveis';
+@use 'variaveis'; // Variáveis de cor e tamanhos de fonte
+@use 'sass:color';
+
+/* --- IMPORTAÇÕES DOS ARQUIVOS PARCIAIS --- */
+@use 'header';
 @use 'hero';
-@use 'shows';
 @use 'plans';
+@use 'shows';
 @use 'available-devices';
 @use 'faq';
-@use 'footer';
-@use 'header';
-@use 'sass:color';
+@use 'footer'; // ⬅️ Importação do footer garantida
+
+// Define o ponto de quebra para dispositivos móveis
+$breakpoint-mobile: 768px;
+$breakpoint-tablet: 1024px;
+
+/* --- CONFIGURAÇÕES GLOBAIS (FONTES E RESET) --- */
 
 @font-face {
     font-family: Avenir;
@@ -32,15 +40,28 @@ body {
     background-color: variaveis.$corDeFundo;
 }
 
+
+/* --- MIXINS & CLASSES UTILITÁRIAS (COM RESPONSIVIDADE CORRETA) --- */
+
 @mixin text($fontSize: 16px){
     font-size: $fontSize;
     line-height: $fontSize + 10px;
     color: variaveis.$corTextoPrincipal;
+
+    @media screen and (max-width: $breakpoint-mobile) {
+        font-size: $fontSize * 0.9;
+        line-height: $fontSize * 0.9 + 10px;
+    }
 }
 
 @mixin title($fontSize: 40px) {
     @include text($fontSize);
-    color:  variaveis.$corTextoSecundario;
+    color: variaveis.$corTextoSecundario;
+    font-weight: bold;
+    
+    @media screen and (max-width: $breakpoint-mobile) {
+        font-size: $fontSize * 0.8;
+    }
 }
 
 .text--big {
@@ -89,22 +110,30 @@ body {
     letter-spacing: 1px;
     border: 1px solid variaveis.$corDeFundoBotaoPrimario;
 
+    @media screen and (max-width: $breakpoint-mobile) {
+        height: 40px; 
+        font-size: 14px;
+        padding: 0 12px;
+    }
+
     &:hover {
-            background-color: color.adjust(variaveis.$corDeFundoBotaoPrimario, $lightness: 3%);
-        }
+        background-color: color.adjust(variaveis.$corDeFundoBotaoPrimario, $lightness: 3%);
+    }
 
     &--secondary {
         background-color: variaveis.$corDeFundoBotaoSecundario;
         border-color: variaveis.$corDeFundoBotaoSecundario;
-
+        color: variaveis.$corTextoSecundario;
+        
         &:hover {
             background-color: color.adjust(variaveis.$corDeFundoBotaoSecundario, $lightness: 3%);
         }
     }
 
-        &--dark {
+    &--dark {
         background-color: rgba(variaveis.$corDeFundoBotaoDark, 0.8);
         border-color: variaveis.$corTextoSecundario;
+        color: variaveis.$corTextoSecundario;
 
         &:hover {
             background-color: variaveis.$corTextoSecundario;
@@ -112,11 +141,21 @@ body {
         }
     }
 }
+
+/* --- SEÇÃO image-text-section (integrada no main.scss) --- */
+
 .image-text-section {
     padding: 5.6vw;
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    @media screen and (max-width: $breakpoint-mobile) {
+        grid-template-columns: 1fr;
+        padding: 4vw;
+    }
 
     img {
         max-width: 100%;
@@ -124,6 +163,11 @@ body {
 
     &__text_container {
         padding: 0 2vw;
+
+        @media screen and (max-width: $breakpoint-mobile) {
+            padding: 24px 0 0 0;
+            text-align: center;
+        }
 
         h2 {
             margin-bottom: 24px;
@@ -133,9 +177,20 @@ body {
     &--image-full-width {
         display: block;
         position: relative;
+        max-width: none;
+        margin: 0;
+
+        @media screen and (max-width: $breakpoint-mobile) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
         img {
             width: 100%;
+            @media screen and (max-width: $breakpoint-mobile) {
+                display: none;
+            }
         }
 
         &__text_container {
@@ -147,6 +202,17 @@ body {
             display: flex;
             flex-direction: column;
             justify-content: center;
+            
+            @media screen and (max-width: $breakpoint-mobile) {
+                position: relative;
+                left: 0;
+                top: 0;
+                width: 100%;
+                padding: 40px 4vw;
+                height: auto;
+                text-align: center;
+                background-color: rgba(variaveis.$corDeFundo, 0.85);
+            }
         }
     }
 }

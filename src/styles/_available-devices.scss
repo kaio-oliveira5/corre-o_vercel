@@ -1,5 +1,15 @@
+@use 'variaveis';
+$breakpoint-mobile: 768px;
+$breakpoint-tablet: 1024px;
+
 .available-devices {
     padding: 5.6vw;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    @media screen and (max-width: $breakpoint-mobile) {
+        padding: 4vw;
+    }
 
     h2 {
         text-align: center;
@@ -9,10 +19,26 @@
     &__list{
         display: grid;
         gap: 24px;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(4, 1fr); // Desktop: 4 colunas
+
+        @media screen and (max-width: $breakpoint-tablet) { 
+            grid-template-columns: repeat(3, 1fr); // Tablet: 3 colunas
+            gap: 20px;
+        }
+
+        @media screen and (max-width: $breakpoint-mobile) {
+            grid-template-columns: repeat(1, 1fr); // Mobile: 1 coluna
+            gap: 16px;
+        }
 
         &__item {
-            text-align: center;
+            text-align: center; // ⬅️ Garante o alinhamento centralizado no desktop por padrão
+            
+            // Reajustamos o alinhamento DENTRO do breakpoint mobile
+            @media screen and (max-width: $breakpoint-mobile) { 
+                text-align: center; // ⬅️ FORÇA A CENTRALIZAÇÃO NO MOBILE
+                padding-left: 0; // ⬅️ Removendo o padding-left para não quebrar a centralização
+            }
 
             h4 {
                 margin-top: 20px;
@@ -21,6 +47,11 @@
 
             li {
                 list-style-type: none;
+                
+                // Garantir que os itens da lista também herdem a centralização
+                @media screen and (max-width: $breakpoint-mobile) {
+                    text-align: center; // ⬅️ Centraliza itens da lista (PS4, XBox One, etc.)
+                }
             }
 
             img {

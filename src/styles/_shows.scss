@@ -1,16 +1,27 @@
-@use './variaveis';
-
+@use 'variaveis';
+$breakpoint-mobile: 768px;
 
 .shows {
     padding: 2vw 5.6vw;
     min-height: 50vw;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    @media screen and (max-width: $breakpoint-mobile) {
+        padding: 4vw; 
+        min-height: auto;
+    }
 
     &__list{
         margin-top: 44px;
         display: none;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: repeat(3, 1fr); 
         gap: 24px;
         
+        @media screen and (max-width: $breakpoint-mobile) {
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 16px; 
+        }
 
         &--is-active {
             display: grid;
@@ -20,13 +31,19 @@
             img{
                 max-width: 100%;
                 border-radius: 4px;
-
             }
         }
     }
+
     &__tabs {
         display: flex;
         justify-content: center;
+        
+        @media screen and (max-width: $breakpoint-mobile) {
+            flex-wrap: wrap; 
+            margin-bottom: 16px; 
+        }
+
         &__button{
             color: variaveis.$corTextoSecundario;
             font-size: 20px;
@@ -38,9 +55,16 @@
             cursor: pointer;
             border-bottom: 5px solid transparent;
 
+            @media screen and (max-width: $breakpoint-mobile) {
+                font-size: 16px; 
+                margin: 0 5px; 
+                padding: 5px 8px;
+                width: auto;
+            }
+
             &--is-active {
                 border-color: variaveis.$corTextoSecundario;
             }
         }
-        }
+    }
 }
